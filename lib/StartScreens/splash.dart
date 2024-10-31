@@ -43,3 +43,8 @@ Future<void> _navigate(BuildContext context) async {
     );
   }
 }
+
+Future<void> _resetFirstLaunch() async {
+  final prefs = await SharedPreferences.getInstance();
+  await prefs.remove('isFirstLaunch'); // Reset flag
+}
