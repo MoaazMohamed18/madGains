@@ -20,10 +20,23 @@ class _ResetPageState extends State<ResetPage> {
       TextEditingController();
 
   void resetPassword() async {
+    String password = passwordController.text.trim();
+
     if (passwordController.text.isEmpty ||
         confirmPasswordController.text.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Please enter both password fields')),
+      );
+      return;
+    }
+
+    RegExp passwordRegExp = RegExp(
+      r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,}$',
+    );
+
+    if (!passwordRegExp.hasMatch(password)) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Password does not meet the requirements')),
       );
       return;
     }
